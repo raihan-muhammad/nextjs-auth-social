@@ -10,11 +10,8 @@ const authReducer = (state = initialState, action) => {
         ...state,
         dataAuth: payload,
       };
-    default: {
-      return {
-        ...state,
-      };
-    }
+    default:
+      return state;
   }
 };
 

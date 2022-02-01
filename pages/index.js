@@ -6,15 +6,28 @@ import {
   FacebookProvider,
   GithubProvider,
 } from "./../config/firebaseAuthMethod";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "./../redux/actions/authActions";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function Home() {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const { auth } = useSelector((data) => data);
+  console.log(auth);
 
-  const handleClick = (provider) => {
-    dispatch(signIn(provider));
+  const handleClick = async (provider) => {
+    const { user } = await dispatch(signIn(provider));
+    console.log(user);
+    if (user !== "") router.push("/home");
   };
+
+  useEffect(() => {
+    if (auth.dataAuth !== "") {
+      router.push("/home");
+    }
+  }, []);
 
   return (
     <div className={styles.container}>

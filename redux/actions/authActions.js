@@ -4,5 +4,6 @@ export const signIn = (provider) => {
   return async (dispatch) => {
     const result = await signInWithPopup(authentication, provider);
     dispatch({ type: "SET_DATA", payload: result });
+    return result;
   };
 };
